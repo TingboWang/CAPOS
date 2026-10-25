@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capos"
+version = "1.0.0"
+description = "Context-Aware Protein Oligomeric State prediction: gated fusion of sequence and structure-aware protein language model embeddings"
+readme = "README.md"
+# Python 3.10 reaches end-of-life in October 2026, so the light tier is
+# validated up to 3.12. 3.9 is kept for older cluster images.
+requires-python = ">=3.9,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "CAPOS authors" }]
+keywords = ["protein", "oligomeric state", "quaternary structure", "protein language model", "SaProt", "ESM"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+# The lightweight tier only needs these. ESM-S / SaProt / Chai-1 are needed
+# for `capos fold` and `capos featurize`, and are documented in the README
+# rather than pinned here: they are heavyweight and each carries its own
+# upstream licence.
+dependencies = [
+    "numpy>=1.24,<2.0",
+    "pandas>=1.5",
+    "h5py>=3.8",
+    "torch==2.3.1",
+]
+
+[project.optional-dependencies]
+# Everything needed to run the full pipeline (fold + featurize + predict + train).
+full = [
+    "biopython>=1.80",
+    "tqdm",
+    "fair-esm==2.0.0",
+    "torchdrug==0.2.1",
+    "transformers>=4.40",
+    "sentencepiece",
+    "scikit-learn>=1.3",
+    "matplotlib",
+    "seaborn",
+]
+# Training only: metrics/plots for the validation report.
+train = ["scikit-learn>=1.3", "matplotlib", "seaborn"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+capos = "capos.cli:main"
+
+[project.urls]
+Source = "https://github.com/TingboWang/CAPOS"
+Issues = "https://github.com/TingboWang/CAPOS/issues"
+
+[tool.setuptools]
+packages = ["capos", "capos.training"]

@@ -1,0 +1,14 @@
+# Build context is the repository root.
+.git/
+images/
+supplementary/
+quickstart/
+pretrained_weights/
+# Reference copies of upstream sources; not needed in the image.
+LICENSE_packages/
+**/__pycache__
+**/*.pyc
+*.egg-info/
+build/
+dist/
+.gitignore

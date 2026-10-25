@@ -1,0 +1,59 @@
+# =============================================================================
+# CAPOS environment #2 of 2 -- structure prediction only.
+#
+#   conda env create -f environment_chai1.yml
+#   conda activate chai1
+#   export CAPOS_CHAI1_CMD="chai-lab"     # or the full path to the binary
+#
+# Why a second environment
+# ------------------------
+# Chai-1 is the only step that needs it, its dependency stack is large and
+# moves on its own release cadence, and mixing it with torchdrug / ESM-S is
+# the kind of thing that silently breaks. Keeping it isolated means a broken
+# fold never takes the rest of the pipeline down with it, and the inference
+# tier stays installable on a laptop without any of this.
+#
+# Two environments is the complete delivery surface:
+#   capos   featurize + predict   (environment.yml)
+#   chai1   fold                 (this file)
+#
+# The CLI shells out to whichever `chai-lab` CAPOS_CHAI1_CMD points at, so the
+# two never import each other.
+#
+# DEPENDENCY NOTE:
+# chai-lab 0.6.0 requires transformers~=4.44. If you encounter version
+# conflicts, let pip resolve dependencies automatically by removing the
+# explicit version pins for transformers/tokenizers/safetensors/huggingface-hub.
+# =============================================================================
+name: chai1
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.18
+  - numpy=1.26.4
+  - biopython=1.85
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+      - torch==2.3.1
+      # NVIDIA CUDA libraries for torch 2.3.1+cu121
+      # MUST use cu12 series (not cu129) to match libcudnn.so.8 requirement
+      - nvidia-cuda-nvrtc-cu12==12.1.105
+      - nvidia-cuda-runtime-cu12==12.1.105
+      - nvidia-cuda-cupti-cu12==12.1.105
+      - nvidia-cudnn-cu12==8.9.2.26
+      - nvidia-cublas-cu12==12.1.3.1
+      - nvidia-cufft-cu12==11.0.2.54
+      - nvidia-curand-cu12==10.3.2.106
+      - nvidia-cusolver-cu12==11.4.5.107
+      - nvidia-cusparse-cu12==12.1.0.106
+      - nvidia-nccl-cu12==2.20.5
+      - nvidia-nvtx-cu12==12.1.105
+      - chai-lab==0.6.0
+      # chai-lab 0.6.0 requires transformers~=4.44
+      # Pin to 4.44.2 to avoid torch>=2.6 requirement in newer versions (CVE-2025-32434)
+      - transformers==4.44.2
+      - tokenizers==0.19.1
+      - safetensors>=0.6
+      - huggingface-hub>=0.35

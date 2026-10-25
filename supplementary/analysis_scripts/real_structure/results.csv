@@ -1,0 +1,25 @@
+kind,stratum,train,eval,n,Macro-MCC_mean,Macro-MCC_sd,Macro-F1_mean,Macro-F1_sd,Accuracy_mean,Accuracy_sd,wins,seeds
+cell,ALL,exp_train,exp,5427,0.4913,0.0106,0.5191,0.0107,0.7372,0.0062,,40-44
+cell,ALL,exp_train,chai,5427,0.4575,0.0113,0.4878,0.0114,0.7271,0.0073,,40-44
+cell,ALL,chai_train,exp,5427,0.4780,0.0088,0.5130,0.0090,0.7342,0.0070,,40-44
+cell,ALL,chai_train,chai,5427,0.4695,0.0138,0.5027,0.0134,0.7348,0.0058,,40-44
+cell,pass=True  (Chai-1 confident),exp_train,exp,5284,0.4903,0.0113,0.5181,0.0116,0.7402,0.0064,,40-44
+cell,pass=True  (Chai-1 confident),exp_train,chai,5284,0.4649,0.0119,0.4958,0.0121,0.7312,0.0077,,40-44
+cell,pass=True  (Chai-1 confident),chai_train,exp,5284,0.4825,0.0084,0.5185,0.0088,0.7374,0.0068,,40-44
+cell,pass=True  (Chai-1 confident),chai_train,chai,5284,0.4768,0.0141,0.5108,0.0139,0.7387,0.0058,,40-44
+cell,pass=False (Chai-1 not confident),exp_train,exp,143,0.2735,0.0142,0.3092,0.0112,0.6252,0.0213,,40-44
+cell,pass=False (Chai-1 not confident),exp_train,chai,143,0.1277,0.0060,0.1894,0.0047,0.5734,0.0099,,40-44
+cell,pass=False (Chai-1 not confident),chai_train,exp,143,0.2048,0.0169,0.2405,0.0133,0.6154,0.0257,,40-44
+cell,pass=False (Chai-1 not confident),chai_train,chai,143,0.1441,0.0112,0.1996,0.0099,0.5916,0.0168,,40-44
+effect_eval,ALL,exp_train,exp,5427,+0.0339,0.0047,,,,,5,40-44
+effect_eval,ALL,chai_train,exp,5427,+0.0085,0.0059,,,,,4,40-44
+effect_train,ALL,exp_train,exp,5427,+0.0133,0.0082,,,,,5,40-44
+effect_train,ALL,exp_train,chai,5427,-0.0120,0.0087,,,,,1,40-44
+effect_eval,pass=True  (Chai-1 confident),exp_train,exp,5284,+0.0255,0.0058,,,,,5,40-44
+effect_eval,pass=True  (Chai-1 confident),chai_train,exp,5284,+0.0057,0.0062,,,,,4,40-44
+effect_train,pass=True  (Chai-1 confident),exp_train,exp,5284,+0.0078,0.0096,,,,,4,40-44
+effect_train,pass=True  (Chai-1 confident),exp_train,chai,5284,-0.0119,0.0089,,,,,1,40-44
+effect_eval,pass=False (Chai-1 not confident),exp_train,exp,143,+0.1457,0.0135,,,,,5,40-44
+effect_eval,pass=False (Chai-1 not confident),chai_train,exp,143,+0.0608,0.0134,,,,,5,40-44
+effect_train,pass=False (Chai-1 not confident),exp_train,exp,143,+0.0686,0.0271,,,,,5,40-44
+effect_train,pass=False (Chai-1 not confident),exp_train,chai,143,-0.0163,0.0137,,,,,1,40-44

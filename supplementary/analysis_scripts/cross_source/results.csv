@@ -1,0 +1,5 @@
+train,val_eval,kind,n,n_seeds,seeds,Macro-MCC_mean,Macro-MCC_sd,Macro-MCC_seed40,Macro-MCC_seed41,Macro-MCC_seed42,Macro-MCC_seed43,Macro-MCC_seed44,Macro-F1_mean,Macro-F1_sd,Accuracy_mean,Accuracy_sd
+pdb,pdb,within-source,3134,5,40-44,0.4200,0.0078,0.4203,0.4331,0.4145,0.4184,0.4137,0.4427,0.0068,0.7383,0.0032
+pdb,uniprot,cross-source,1040,5,40-44,0.2131,0.0065,0.2211,0.2110,0.2038,0.2126,0.2170,0.2365,0.0095,0.4875,0.0036
+uniprot,pdb,cross-source,3134,5,40-44,0.1877,0.0050,0.1868,0.1827,0.1838,0.1906,0.1948,0.2418,0.0061,0.4660,0.0106
+uniprot,uniprot,within-source,1040,5,40-44,0.4979,0.0130,0.5087,0.4850,0.5080,0.5054,0.4826,0.5245,0.0133,0.7994,0.0090

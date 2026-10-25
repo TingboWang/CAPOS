@@ -1,0 +1,90 @@
+# =============================================================================
+# CAPOS environment #1 of 2 -- everything except structure prediction.
+#
+#   conda env create -f environment.yml
+#   conda activate capos
+#   pip install -e .      # from the repository root; installs `capos`
+#
+# What lives here
+#   torch                     model runtime and the encoders
+#   torchdrug                 protein encoding for ESM-S
+#   fair-esm / transformers   ESM-S and the encoder-comparison models
+#   torch-scatter/sparse      torchdrug's graph ops (build MUST match torch)
+#   biopython, h5py, pandas   plumbing
+#   foldseek                  3Di token extraction and structural search
+#                             (a binary, not a python package -- see README)
+#
+# Structure prediction is deliberately NOT here. Chai-1 pulls a large and
+# independently versioned dependency stack, so it gets its own environment
+# (environment_chai1.yml). The CLI shells out to it. Two environments is the
+# whole delivery surface.
+#
+# The pins below match the revision environment actually used for the paper:
+# Python 3.10.20, torch 2.3.1+cu121, and PyG wheels built for pt23cu121.
+#
+# MIRROR CONFIGURATION (for regions with slow access to official sources):
+#   PyPI:     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
+#   PyTorch:  change --extra-index-url to your mirror (e.g., https://mirrors.aliyun.com/pytorch-wheels/cu121)
+#   PyG:      download wheels manually from https://data.pyg.org/whl/ and install locally
+#   HuggingFace: export HF_ENDPOINT=https://hf-mirror.com
+# =============================================================================
+name: capos
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.20
+  - numpy=1.26.4
+  - pandas=2.3.3
+  - h5py=3.11.0
+  - scipy=1.15.2
+  - scikit-learn=1.7.2
+  - biopython=1.86
+  - matplotlib=3.10.8
+  - seaborn=0.13.2
+  - tqdm=4.67.3
+  - pyyaml=6.0.3
+  - sentencepiece=0.2.1
+  - networkx=3.4.2
+  - setuptools<70
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+      - --find-links https://data.pyg.org/whl/torch-2.3.1+cu121.html
+      - torch==2.3.1
+      # torchvision/torchaudio are unused by CAPOS; pinned to torch-2.3.1
+      # compatible builds. The revision environment had older leftovers.
+      - torchvision==0.18.1
+      - torchaudio==2.3.1
+      # NVIDIA CUDA libraries for torch 2.3.1+cu121
+      # MUST use cu12 series (not cu129) to match libcudnn.so.8 requirement
+      - nvidia-cuda-nvrtc-cu12==12.1.105
+      - nvidia-cuda-runtime-cu12==12.1.105
+      - nvidia-cuda-cupti-cu12==12.1.105
+      - nvidia-cudnn-cu12==8.9.2.26
+      - nvidia-cublas-cu12==12.1.3.1
+      - nvidia-cufft-cu12==11.0.2.54
+      - nvidia-curand-cu12==10.3.2.106
+      - nvidia-cusolver-cu12==11.4.5.107
+      - nvidia-cusparse-cu12==12.1.0.106
+      - nvidia-nccl-cu12==2.20.5
+      - nvidia-nvtx-cu12==12.1.105
+      # torchdrug needs these; the wheel tag must match the torch build above.
+      - torch-scatter==2.1.2+pt23cu121
+      - torch-sparse==0.6.18+pt23cu121
+      - torch-cluster==1.6.3+pt23cu121
+      - torch-spline-conv==1.2.2+pt23cu121
+      - torchdrug==0.2.1
+      # torchdrug extra dependencies
+      - decorator
+      - lmdb
+      - ninja
+      - rdkit-pypi
+      - fair-esm==2.0.0
+      # SaProt extraction needs pytorch-lightning (2.x for torch 2.3.1 compatibility)
+      - pytorch-lightning==2.2.5
+      - transformers==4.48.1
+      - tokenizers==0.21.4
+      - safetensors==0.7.0
+      - accelerate==1.13.0
+      - huggingface-hub==0.36.2
