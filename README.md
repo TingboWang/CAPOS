@@ -58,9 +58,14 @@ Install the package in a Python 3.10 environment and run the bundled script:
 ```bash
 git clone https://github.com/TingboWang/CAPOS.git
 cd CAPOS
-python -m pip install .
+python -m venv .venv && . .venv/bin/activate
+python -m pip install -r requirements-quickstart.txt
+python -m pip install --no-deps .
 cd quickstart && ./run_quickstart.sh
 ```
+
+`requirements-quickstart.txt` pins the CPU-only PyTorch build, so no CUDA
+runtime is downloaded.
 
 `run_quickstart.sh` predicts on the ten bundled proteins with both classifiers,
 writes the results to `quickstart/run_out/`, and diffs them against
@@ -328,6 +333,7 @@ CAPOS/
 ├── quickstart.sh              # image-based inference demo
 ├── download_weights.sh        # pretrained-weight downloader
 ├── pyproject.toml
+├── requirements-quickstart.txt  # CPU-only quickstart dependencies
 ├── Dockerfile
 ├── .dockerignore
 ├── environment.yml

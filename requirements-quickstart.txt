@@ -1,0 +1,8 @@
+# CPU-only quickstart: no CUDA runtime, no GPU.
+# Linux/WSL: the +cpu wheels are published for Linux and Windows.
+# Pinned to the versions used in the validated release environment.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.3.1+cpu
+numpy==1.26.4
+pandas==2.3.3
+h5py==3.11.0
