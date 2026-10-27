@@ -73,8 +73,9 @@ writes the results to `quickstart/run_out/`, and diffs them against
 
 ### With the image (Singularity)
 
-The image is not stored in Git. Clone the source, pull the image from GHCR, and
-run the quickstart:
+The same quickstart can also run from the full-tier image, without a local
+Python install. The image is distributed separately (it is not stored in Git);
+pull it once from GHCR and run the bundled script:
 
 ```bash
 git clone https://github.com/TingboWang/CAPOS.git
@@ -89,7 +90,8 @@ singularity pull images/capos-full.sif \
 ./quickstart.sh
 ```
 
-`quickstart.sh` uses `images/capos-full.sif` by default.
+`quickstart.sh` uses `images/capos-full.sif` by default; pass a path explicitly
+with `./quickstart.sh /path/to/capos-full.sif`.
 
 ### Example output
 
