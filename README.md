@@ -47,11 +47,26 @@ pLDDT ≥ 70. The final splits contain 102,381 training, 14,407 validation, and
 
 ## 🚀 Quick start
 
-The quickstart requires Singularity CE and the full-tier image. It runs on CPU.
-The ten proteins, their precomputed ESM-S, SaProt, and ProtT5 features, and the
-reference predictions are in `quickstart/`.
+The quickstart runs on CPU and needs neither a GPU nor the pretrained encoder
+weights. The ten proteins, their precomputed ESM-S, SaProt, and ProtT5 features,
+and the reference predictions are in `quickstart/`.
 
-### Clone and pull the image
+### From source (no container)
+
+Install the package in a Python 3.10 environment and run the bundled script:
+
+```bash
+git clone https://github.com/TingboWang/CAPOS.git
+cd CAPOS
+python -m pip install .
+cd quickstart && ./run_quickstart.sh
+```
+
+`run_quickstart.sh` predicts on the ten bundled proteins with both classifiers,
+writes the results to `quickstart/run_out/`, and diffs them against
+`quickstart/reference_out/`.
+
+### With the image (Singularity)
 
 The image is not stored in Git. Clone the source, pull the image from GHCR, and
 run the quickstart:
